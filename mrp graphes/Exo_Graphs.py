@@ -123,7 +123,7 @@ def color_graph_by_random_lists(graph, number_of_iterations=1):
     min_c = -1
     for i in range(number_of_iterations):
         random.shuffle(list_of_vertices)
-        c, color = color_graph_by_list(list_of_vertices)
+        c, color = color_graph_by_list(graph, list_of_vertices)
         if min_c == -1 or c < min_c:
             min_c = c
             best_coloring = color
@@ -134,8 +134,8 @@ def is_stable(graph, set_s):
     It returns True if this set is a stable of the graph (there is no edge
      between vertices of this set in the graph).
      Returns False otherwise."""
-    for u in set_of_vertices(graph):
-        for v in set_of_vertices(graph):
+    for u in set_s:
+        for v in set_s:
             if are_neighbors(graph, u, v):
                 return False
     return True
@@ -145,8 +145,12 @@ def is_proper_coloring(graph, color):
     vertices as keys and colors (integers > 0) as values).
     Returns True if color is a proper coloring of the graph.
     Returns False otherwise and print a message to indicate the error."""
-    pass
-
+    for u in set_of_vertices(graph):
+        for v in set_of_vertices(graph):
+            if are_neighbors(graph, u, v) and color[u] == color[v]:
+                print(f"{u} et {v} sont adjacents et de la même couleur : {color[u]}")
+                return False
+    return True
 
 # Special_Graphs.hypercube_graph(3)  # To construct a hypercube(d)
 global_graph = extract_graph_from_file("H3")
@@ -179,6 +183,6 @@ print('-----')
 print(f"------ Is the graph symmetric? {is_symmetric(global_graph)}")
 global_coloring_of_the_graph = color_graph_by_random_lists(global_graph, 4)
 print(global_coloring_of_the_graph)
-# resultG["000"] = resultG["010"] # To force an error in H3 graph.
+# global_coloring_of_the_graph["000"] = global_coloring_of_the_graph["010"] # To force an error in H3 graph.
 print(f"-- Is it a valid coloring? "
       f"{is_proper_coloring(global_graph, global_coloring_of_the_graph)}")

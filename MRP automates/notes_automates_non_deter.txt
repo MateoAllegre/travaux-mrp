@@ -1,0 +1,9 @@
+delta(P, c) inclus dans l'ensemble des états
+peut être un ensemble ex:{e1, e3}
+peut être l'ensemble vide
+
+plusieurs états initiaux ? ok
+
+Mot accepté s'il existe au moins un chemin "légal" le menant à un état accepteur
+
+Automates non déter équivalents à automates déterministes (tout automate ND peut être transformé en automate D)

@@ -119,20 +119,35 @@ def color_graph_by_random_lists(graph, number_of_iterations=1):
     Runs number_of_iterations times the coloring function of the graph on
     random lists of vertices of the graph and returns the best coloring found
     (the one using the lowest number of colors)."""
-    pass
-
+    list_of_vertices = list(set_of_vertices(graph))
+    min_c = -1
+    for i in range(number_of_iterations):
+        random.shuffle(list_of_vertices)
+        c, color = color_graph_by_list(graph, list_of_vertices)
+        if min_c == -1 or c < min_c:
+            min_c = c
+            best_coloring = color
+    return best_coloring
 
 def is_stable(graph, set_s):
     """Boolean function taking as input a graph and a set of vertices.
     It returns True if this set is a stable of the graph (there is no edge
      between vertices of this set in the graph).
      Returns False otherwise."""
-    pass
-
+    for u in set_s:
+        for v in set_s:
+            if are_neighbors(graph, u, v):
+                return False
+    return True
 
 def is_proper_coloring(graph, color):
     """Takes as input a graph and a coloring (a dictionary having the set of
     vertices as keys and colors (integers > 0) as values).
     Returns True if color is a proper coloring of the graph.
     Returns False otherwise and print a message to indicate the error."""
-    pass
+    for u in set_of_vertices(graph):
+        for v in set_of_vertices(graph):
+            if are_neighbors(graph, u, v) and color[u] == color[v]:
+                print(f"{u} et {v} sont adjacents et de la même couleur : {color[u]}")
+                return False
+    return True
